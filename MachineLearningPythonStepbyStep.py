@@ -72,7 +72,7 @@ dataset.hist()
 #4.2 multivariate plots
 # scatter plot matrix
 scatter_matrix(dataset)
-?scatter_matrix
+
 # Split-out validation dataset
 array = dataset.values
 X = array[:,0:4]
