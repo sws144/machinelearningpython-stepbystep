@@ -63,18 +63,22 @@ print(dataset.describe())
 print(dataset.groupby('class').size())
 #box and whisker plots 
 dataset.plot(kind='box',subplots=True,layout=(2,2),sharex=False,sharey=False)
-plt.show()
+plt.show(block=False)
 
 ## 4.1 univariate plots
 #histograms
 dataset.hist()
+plt.show(block=False)
 
 #4.2 multivariate plots
 # scatter plot matrix
 scatter_matrix(dataset)
+plt.show(block=False)
 
 # Split-out validation dataset
 array = dataset.values
+type(dataset)
+type(array)
 X = array[:,0:4]
 Y = array[:,4]
 validation_size = 0.20
@@ -107,4 +111,21 @@ fig.suptitle('Algorithm Comparison')
 ax = fig.add_subplot(111)
 plt.boxplot(results)
 ax.set_xticklabels(names)
-plt.show()
+plt.show(block=False)
+
+# Make predictions on validation dataset
+knn = KNeighborsClassifier()
+knn.fit(X_train, Y_train)
+predictions = knn.predict(X_validation)
+print(accuracy_score(Y_validation,predictions))
+print(confusion_matrix(Y_validation,predictions))
+print(classification_report(Y_validation,predictions))
+
+# Make predictions with svm
+svm = SVC(gamma = 'auto')
+svm.fit(X_train,Y_train)
+predictionsSVM = svm.predict(X_validation)
+print(accuracy_score(Y_validation,predictionsSVM))
+print(confusion_matrix(Y_validation,predictionsSVM))
+print(classification_report(Y_validation,predictionsSVM))
+
